@@ -5,5 +5,6 @@ import { checkUserRole } from "../middleware/auth.js";
 const answerRouter = express.Router();
 
 answerRouter.put("/", checkUserRole, answerController.updateAnswer);
+answerRouter.get("/:id", checkUserRole, answerController.getExamAnswers);
 
 export { answerRouter };
