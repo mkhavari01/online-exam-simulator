@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const FormSchema = new mongoose.Schema(
+const ExamSchema = new mongoose.Schema(
   {
     questions: [
       {
@@ -14,6 +14,6 @@ const FormSchema = new mongoose.Schema(
   }
 );
 
-const FormModel = mongoose.model("Form", FormSchema);
+const ExamModel = mongoose.model("Exam", ExamSchema);
 
-export { FormModel };
+export { ExamModel };

@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 
-const FormSchema = new mongoose.Schema(
+const asnwerSchema = new mongoose.Schema(
   {
-    form: {
+    exam: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Form",
+      ref: "Exam",
       required: true,
     },
-    formIndex: { type: Number, required: true },
+    examIndex: { type: Number, required: true },
     answer: { type: String, required: false, default: "" },
   },
   {
@@ -15,6 +15,6 @@ const FormSchema = new mongoose.Schema(
   }
 );
 
-const FormModel = mongoose.model("Form", FormSchema);
+const AnswerModel = mongoose.model("Answer", asnwerSchema);
 
-export { FormModel };
+export { AnswerModel };
