@@ -5,6 +5,7 @@ import { config } from "./config/config.js";
 
 import { userRouter } from "./routes/user.router.js";
 import { examRouter } from "./routes/exam.router.js";
+import { answerRouter } from "./routes/answer.router.js";
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(urlencoded({ extended: true }));
 
 app.use("/api/user", userRouter);
 app.use("/api/exam", examRouter);
+app.use("/api/answer", answerRouter);
 
 connect(config.dbUrl)
   .then(() => {
