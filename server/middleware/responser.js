@@ -1,4 +1,5 @@
-const successResponse = (res, data) => {
+const successResponse = (req, res, data) => {
+  console.log("reqis", req);
   return res.status(201).json({
     status: "success",
     data,

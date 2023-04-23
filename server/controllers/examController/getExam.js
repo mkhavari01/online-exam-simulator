@@ -5,7 +5,7 @@ const getExam = async (req, res, next) => {
   const { id } = req.params;
   try {
     const response = await ExamModel.findById(id);
-    successResponse(res, response);
+    successResponse(req, res, response);
   } catch (error) {
     errorResponse(res, error);
   }

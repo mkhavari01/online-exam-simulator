@@ -7,11 +7,15 @@ import { userRouter } from "./routes/user.router.js";
 import { examRouter } from "./routes/exam.router.js";
 import { answerRouter } from "./routes/answer.router.js";
 
+import { logRequest } from "./middleware/logRequest.js";
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use(urlencoded({ extended: true }));
+
+app.use(logRequest);
 
 app.use("/api/user", userRouter);
 app.use("/api/exam", examRouter);
