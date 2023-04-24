@@ -7,11 +7,11 @@ const asnwerSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    exam: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Exam",
-      required: true,
-    },
+    // exam: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "Exam",
+    //   required: true,
+    // },
     examIndex: { type: Number, required: true },
     answer: { type: String, required: false, default: "" },
   },

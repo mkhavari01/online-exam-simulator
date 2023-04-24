@@ -8,7 +8,7 @@ function MultipleChoice() {
   return (
     <FormControl>
       <RadioGroup
-        column
+        column="true"
         aria-labelledby="demo-row-radio-buttons-group-label"
         name="row-radio-buttons-group"
       >

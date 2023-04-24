@@ -35,7 +35,6 @@ const authSlice = createSlice({
       state.isError = false;
     },
     sendAuthError: (state, action) => {
-      console.log(action.payload);
       alert(action.payload);
       state.isLoading = false;
       state.isSuccess = false;

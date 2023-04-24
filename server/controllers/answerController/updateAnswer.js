@@ -4,21 +4,23 @@ import { ExamModel } from "../../models/exam.model.js";
 
 const updateAnswer = async (req, res, next) => {
   try {
-    const { answer, exam, examIndex } = req.body;
+    const { answer, examIndex } = req.body;
     const user = req.user;
 
-    const doc = await ExamModel.findById(exam);
+    //// we are using static web form
 
-    if (!doc) {
-      throw new Error("This exam is not available,404");
-    }
+    // const doc = await ExamModel.findById(exam);
+
+    // if (!doc) {
+    //   throw new Error("This exam is not available,404");
+    // }
 
     if (doc.questions.length - 1 < examIndex) {
       throw new Error("This exam don't have this question,404");
     }
 
     const response = await AnswerModel.findOneAndUpdate(
-      { user: user._id, exam, examIndex },
+      { user: user._id, examIndex },
       { answer },
       {
         new: true,
