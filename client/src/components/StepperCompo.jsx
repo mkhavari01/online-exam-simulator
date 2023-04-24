@@ -7,25 +7,20 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import { ShortAnswer, LongAnswer, MultipleChoice } from "../components";
 
 const steps = [
   {
-    label: "Select campaign settings",
-    description: `For each ad campaign that you create, you can control how much
-              you're willing to spend on clicks and conversions, which networks
-              and geographical locations you want your ads to show on, and more.`,
+    label: "Enter Your Name (short answer)",
+    description: <ShortAnswer />,
   },
   {
-    label: "Create an ad group",
-    description:
-      "An ad group contains one or more ads which target a shared set of keywords.",
+    label: "Tell something about yourself (Long answer)",
+    description: <LongAnswer />,
   },
   {
-    label: "Create an ad",
-    description: `Try out different ad text to see what brings in the most customers,
-              and learn how to enhance your ads using features like ad extensions.
-              If you run into any problems with your ads, find out how to tell if
-              they're running and how to resolve approval issues.`,
+    label: "What is your gender (Multiple choice)",
+    description: <MultipleChoice />,
   },
 ];
 
@@ -58,7 +53,15 @@ function StepperCompo() {
         >
           <Typography>{steps[activeStep].label}</Typography>
         </Paper>
-        <Box sx={{ height: 255, maxWidth: 400, width: "100%", p: 2 }}>
+        <Box
+          sx={{
+            height: 255,
+            maxWidth: 400,
+            width: "100%",
+            p: 2,
+            overflow: "auto",
+          }}
+        >
           {steps[activeStep].description}
         </Box>
         <MobileStepper
