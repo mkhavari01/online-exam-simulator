@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { sendAuthRequestAsync } from "../redux/authSlice";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
-const LoginPage = () => {
+const SignupPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState("mkhavari0120@gmail.com");
+  const [name, setName] = useState("Mahdi Khavari");
   const [password, setPassword] = useState("1234");
   const [emailError, setEmailError] = useState(false);
 
@@ -23,7 +24,6 @@ const LoginPage = () => {
       // remove error message or apply CSS class for valid input
       setEmailError(false);
     }
-    return;
   };
 
   const validateEmail = (email) => {
@@ -33,7 +33,7 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    return dispatch(sendAuthRequestAsync({ email, password }, "login"));
+    return dispatch(sendAuthRequestAsync({ email, password, name }, "signup"));
   };
 
   if (isSuccess) {
@@ -48,9 +48,16 @@ const LoginPage = () => {
     <>
       <div className="wrapper">
         <div className="container">
-          <h1>Login</h1>
+          <h1>Signup</h1>
 
           <form className="form" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="Name"
+              name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
             {emailError && (
               <span className="err-message">Please provide a valid Email</span>
             )}
@@ -69,11 +76,11 @@ const LoginPage = () => {
               value={password}
             />
             <button type="submit" id="login-button">
-              Login
+              Signup
             </button>
           </form>
-          <a style={{ zIndex: 1000 }} href="/signup">
-            <h2>Signup</h2>
+          <a style={{ zIndex: 1000 }} href="/login">
+            <h2>Login</h2>
           </a>
         </div>
 
@@ -94,4 +101,4 @@ const LoginPage = () => {
   );
 };
 
-export { LoginPage };
+export { SignupPage };

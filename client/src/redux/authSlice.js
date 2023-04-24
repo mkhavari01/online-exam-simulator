@@ -1,22 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const sendAuthRequestAsync = (data) => async (dispatch) => {
+const sendAuthRequestAsync = (data, route) => async (dispatch) => {
   try {
     dispatch(sendAuthRequest());
     const response = await axios.post(
-      `${process.env.REACT_APP_BACKEND_URL}api/user/login`,
+      `${process.env.REACT_APP_BACKEND_URL}api/user/${route}`,
       data
     );
     dispatch(sendAuthSuccess(response.data));
   } catch (error) {
-    dispatch(sendAuthError());
+    dispatch(sendAuthError(error.response.data.data));
   }
 };
 
 const initialState = {
-  email: "",
-  password: "",
+  data: [],
   isLoading: false,
   isSuccess: false,
   isError: false,
@@ -26,23 +25,18 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setEmail: (state, action) => {
-      state.email = action.payload;
-    },
-    setPassword: (state, action) => {
-      state.password = action.payload;
-    },
     sendAuthRequest: (state) => {
       state.isLoading = true;
     },
-    sendAuthSuccess: (state) => {
+    sendAuthSuccess: (state, action) => {
+      localStorage.setItem("token", action.payload.data.token);
       state.isLoading = false;
       state.isSuccess = true;
       state.isError = false;
-      state.email = "";
-      state.password = "";
     },
-    sendAuthError: (state) => {
+    sendAuthError: (state, action) => {
+      console.log(action.payload);
+      alert(action.payload);
       state.isLoading = false;
       state.isSuccess = false;
       state.isError = true;
@@ -50,13 +44,8 @@ const authSlice = createSlice({
   },
 });
 
-export const {
-  setEmail,
-  setPassword,
-  sendAuthRequest,
-  sendAuthSuccess,
-  sendAuthError,
-} = authSlice.actions;
+export const { sendAuthRequest, sendAuthSuccess, sendAuthError } =
+  authSlice.actions;
 
 export default authSlice.reducer;
 
