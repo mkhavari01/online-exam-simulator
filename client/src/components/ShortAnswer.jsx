@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 import TextField from "@mui/material/TextField";
 import { useEffect, useState } from "react";
 import useDebounce from "../handler/useDebounce";

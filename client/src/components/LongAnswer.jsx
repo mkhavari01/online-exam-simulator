@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 import Textarea from "@mui/joy/Textarea";
 import { useAnswerData } from "../handler/useAnswerData";
 import { useEffect, useState } from "react";
