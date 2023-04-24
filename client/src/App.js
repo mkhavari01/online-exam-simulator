@@ -1,5 +1,5 @@
 import "./App.css";
-import { PostsList, NotFound } from "./pages";
+import { PostsList, NotFound, LoginPage } from "./pages";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -7,6 +7,7 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/" component={PostsList} />
+        <Route exact path="/login" component={LoginPage} />
         <Route path="*" component={NotFound} />
       </Switch>
     </Router>
