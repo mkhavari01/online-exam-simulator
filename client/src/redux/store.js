@@ -3,6 +3,7 @@ import postsReducer from "./postsSlice";
 import authReducer from "./authSlice";
 import answersReducer from "./answersSlice";
 import updateReducer from "./updateSlice";
+import tokenReducer from "./tokenSlice";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     auth: authReducer,
     answers: answersReducer,
     update: updateReducer,
+    token: tokenReducer,
   },
 });
 

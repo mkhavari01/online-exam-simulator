@@ -37,7 +37,7 @@ const SignupPage = () => {
   };
 
   if (isSuccess) {
-    return history.push("/about");
+    return history.push("/form");
   }
 
   if (isLoading) {
