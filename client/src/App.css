@@ -262,6 +262,27 @@ form button:hover {
   justify-content: center;
 }
 
-h1,h2,h3,h4,h5,h6{
+h1,h2,h3,h4,h5,h6,p,span,button{
   color: #000;
+}
+
+.wrapper-boxes-holder{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+}
+.boxes-holder{
+  color: #000;
+  color: black;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex-direction: column;
+}
+
+html,body,#root{
+  height: 100%;
 }
