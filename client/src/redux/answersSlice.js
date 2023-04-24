@@ -27,7 +27,7 @@ const config = {
 
 const fetchAnswers = createAsyncThunk("api/answers", async () => {
   const response = await axios.get(
-    `${process.env.REACT_APP_BACKEND_URL}api/answer/644516232926706ba98a257b`,
+    `${process.env.REACT_APP_BACKEND_URL}api/answer`,
     config
   );
   return response.data;

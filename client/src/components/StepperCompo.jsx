@@ -12,15 +12,15 @@ import { ShortAnswer, LongAnswer, MultipleChoice } from "../components";
 const steps = [
   {
     label: "Enter Your Name (short answer)",
-    description: <ShortAnswer />,
+    description: <ShortAnswer indexQuestion={0} />,
   },
   {
     label: "Tell something about yourself (Long answer)",
-    description: <LongAnswer />,
+    description: <LongAnswer indexQuestion={1} />,
   },
   {
     label: "What is your gender (Multiple choice)",
-    description: <MultipleChoice />,
+    description: <MultipleChoice indexQuestion={2} />,
   },
 ];
 

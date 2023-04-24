@@ -5,16 +5,20 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import { useAnswerData } from "../handler/useAnswerData";
 import useDebounce from "../handler/useDebounce";
+import { CircularProgress } from "@mui/material";
+import { sendUpdateRequestAsync } from "../redux/updateSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-const indexQuestion = 2;
-
-function MultipleChoice() {
+function MultipleChoice({ indexQuestion }) {
+  const dispatch = useDispatch();
   const { previousData, userInputData, updateAnswer } = useAnswerData();
   const [value, setValue] = React.useState("");
 
   const [handleDebounce, optimizedVersion] = useDebounce((obj) => {
-    console.log("update db", obj);
+    dispatch(sendUpdateRequestAsync({ examIndex: indexQuestion, answer: obj }));
   });
+
+  const isLoading = useSelector((state) => state.update.isLoading);
 
   function changeHandler({ target }) {
     updateAnswer(indexQuestion, target.value);
@@ -23,27 +27,28 @@ function MultipleChoice() {
   }
 
   React.useEffect(() => {
-    console.log("short answer");
-    previousData?.data?.[0].answer &&
-      setValue(
-        userInputData.find((item) => item.index === indexQuestion)?.value ||
-          previousData?.data?.find((item) => item.examIndex === indexQuestion)
-            ?.answer
-      );
+    setValue(
+      userInputData.find((item) => item.index === indexQuestion)?.value ||
+        previousData?.data?.find((item) => item.examIndex === indexQuestion)
+          ?.answer
+    );
   }, [previousData]);
   return (
-    <FormControl>
-      <RadioGroup
-        onChange={changeHandler}
-        column="true"
-        aria-labelledby="demo-row-radio-buttons-group-label"
-        name="row-radio-buttons-group"
-        value={value}
-      >
-        <FormControlLabel value="female" control={<Radio />} label="Female" />
-        <FormControlLabel value="male" control={<Radio />} label="Male" />
-      </RadioGroup>
-    </FormControl>
+    <div className="shortAnswerholder">
+      <FormControl>
+        <RadioGroup
+          onChange={changeHandler}
+          column="true"
+          aria-labelledby="demo-row-radio-buttons-group-label"
+          name="row-radio-buttons-group"
+          value={value}
+        >
+          <FormControlLabel value="female" control={<Radio />} label="Female" />
+          <FormControlLabel value="male" control={<Radio />} label="Male" />
+        </RadioGroup>
+      </FormControl>
+      {isLoading && <CircularProgress />}
+    </div>
   );
 }
 

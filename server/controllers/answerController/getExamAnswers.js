@@ -6,9 +6,7 @@ const getExamAnswers = async (req, res, next) => {
   const user = req.user;
   try {
     const response = await AnswerModel.find({ user: user._id });
-    if (!response[0]) {
-      throw new Error("the Item is not found,404");
-    }
+
     successResponse(res, response);
   } catch (error) {
     errorResponse(res, error);
