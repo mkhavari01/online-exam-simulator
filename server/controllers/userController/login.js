@@ -10,12 +10,12 @@ const login = async (req, res, next) => {
     const validUser = await UserModel.findOne({ email });
 
     if (!validUser) {
-      throw new Error("User is not valid.");
+      throw new Error("User was not found,404");
     }
 
     const validPassword = await bcryptjs.compare(password, validUser.password);
     if (!validPassword) {
-      throw new Error("Password is not valid.");
+      throw new Error("Password is not valid,400");
     }
 
     const token = jwt.sign(

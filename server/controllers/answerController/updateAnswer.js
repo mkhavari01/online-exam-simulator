@@ -10,11 +10,11 @@ const updateAnswer = async (req, res, next) => {
     const doc = await ExamModel.findById(exam);
 
     if (!doc) {
-      throw new Error("This exam is not available");
+      throw new Error("This exam is not available,404");
     }
 
     if (doc.questions.length - 1 < examIndex) {
-      throw new Error("This exam don't have this question");
+      throw new Error("This exam don't have this question,404");
     }
 
     const response = await AnswerModel.findOneAndUpdate(

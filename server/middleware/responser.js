@@ -1,15 +1,14 @@
-const successResponse = (res, data) => {
-  return res.status(201).json({
+const successResponse = (res, data, statusCode) => {
+  return res.status(statusCode || 201).json({
     status: "success",
     data,
   });
 };
 
 const errorResponse = (res, err) => {
-  console.log("error :", err);
-  return res.status(500).json({
+  return res.status(+err.message.split(",")[1] || 500).json({
     status: "error",
-    data: err.message,
+    data: err.message.split(",")[0] || err.message,
   });
 };
 
