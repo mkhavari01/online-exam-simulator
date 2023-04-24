@@ -1,24 +1,29 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectAllAnswers, userInput } from "../redux/answersSlice";
+import {
+  selectAllAnswers,
+  updateAnswer,
+  userInput,
+  fetchAnswers,
+} from "../redux/answersSlice";
 
-const useAnswerData = (indexQuestion) => {
+const useAnswerData = () => {
   const dispatch = useDispatch();
+
   const previousData = useSelector(selectAllAnswers);
   const userInputData = useSelector(userInput);
 
-  const [value, setValue] = useState("");
-
   useEffect(() => {
-    previousData?.data?.[0].answer &&
-      setValue(
-        userInputData.find((item) => item.index === indexQuestion)?.value ||
-          previousData?.data?.find((item) => item.examIndex === indexQuestion)
-            ?.answer
-      );
-  }, [previousData]);
+    if (!previousData?.data) {
+      dispatch(fetchAnswers());
+    }
+  }, []);
 
-  return { previousData, userInputData, dispatch };
+  const updateAnswerData = (index, value) => {
+    dispatch(updateAnswer({ index, value }));
+  };
+
+  return { previousData, userInputData, updateAnswer: updateAnswerData };
 };
 
 export { useAnswerData };
