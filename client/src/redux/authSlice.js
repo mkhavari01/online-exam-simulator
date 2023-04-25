@@ -5,7 +5,7 @@ const sendAuthRequestAsync = (data, route) => async (dispatch) => {
   try {
     dispatch(sendAuthRequest());
     const response = await axios.post(
-      `${process.env.REACT_APP_BACKEND_URL}api/user/${route}`,
+      `${process.env.REACT_APP_BACKEND_URL}/api/user/${route}`,
       data
     );
     dispatch(sendAuthSuccess(response.data));

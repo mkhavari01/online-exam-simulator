@@ -8,7 +8,7 @@ const config = {
 export const checkToken = createAsyncThunk("api/user/check-token", async () => {
   console.log("here");
   const response = await axios.post(
-    `${process.env.REACT_APP_BACKEND_URL}api/user/check-token`,
+    `${process.env.REACT_APP_BACKEND_URL}/api/user/check-token`,
     null,
     config
   );
