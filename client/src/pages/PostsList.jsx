@@ -6,6 +6,7 @@ import {
   selectPostStatus,
   selectError,
 } from "../redux/postsSlice";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function PostsList() {
   const dispatch = useDispatch();
@@ -18,7 +19,11 @@ function PostsList() {
   }, [dispatch]);
 
   if (postStatus === "loading") {
-    return <div>Loading...</div>;
+    return (
+      <h1 className="loader">
+        <CircularProgress />
+      </h1>
+    );
   }
 
   if (postStatus === "failed") {

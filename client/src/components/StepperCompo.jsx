@@ -55,6 +55,7 @@ function StepperCompo() {
         </Paper>
         <Box
           sx={{
+            background: "#fff",
             height: 255,
             maxWidth: 400,
             width: "100%",
@@ -65,6 +66,7 @@ function StepperCompo() {
           {steps[activeStep].description}
         </Box>
         <MobileStepper
+          style={{ background: "#e0e0e0" }}
           variant="text"
           steps={maxSteps}
           position="static"

@@ -1,22 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Route, Redirect } from "react-router-dom";
-import { checkToken } from "../redux/tokenSlice";
+import { Route } from "react-router-dom";
 import axios from "axios";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  // const dispatch = useDispatch();
-
-  // const isLoading = useSelector((state) => state.token.loading);
-  // const response = useSelector((state) => state.token.isTokenValid);
-
-  // const [res, setRes] = useState(false);
-
-  // console.log("res is", res);
-
-  // useEffect(() => {
-  //   dispatch(checkToken());
-  // }, []);
   const [data, setData] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -44,15 +31,23 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   }, []);
 
   if (isLoading) {
-    return <div style={{ color: "black" }}>Loading...</div>;
+    return (
+      <h1 className="loader">
+        <CircularProgress />
+      </h1>
+    );
   }
 
   if (data) {
     return <Route {...rest} render={(props) => <Component {...props} />} />;
   }
 
+  // if (error) {
+  //   return <Redirect to={{ pathname: "/login" }} />;
+  // }
+
   if (error) {
-    return <div style={{ color: "black" }}>Error: {error.message}</div>;
+    return (window.location.href = "login");
   }
 };
 

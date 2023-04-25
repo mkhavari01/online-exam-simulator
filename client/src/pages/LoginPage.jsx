@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { sendAuthRequestAsync } from "../redux/authSlice";
 import { useHistory } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const LoginPage = () => {
   const history = useHistory();
@@ -37,11 +38,15 @@ const LoginPage = () => {
   };
 
   if (isSuccess) {
-    return history.push("/form");
+    return (window.location.href = "form");
   }
 
   if (isLoading) {
-    return <h1 className="loader">Loading ....</h1>;
+    return (
+      <h1 className="loader">
+        <CircularProgress />
+      </h1>
+    );
   }
 
   return (
@@ -73,7 +78,7 @@ const LoginPage = () => {
             </button>
           </form>
           <a style={{ zIndex: 1000 }} href="/signup">
-            <h2>Signup</h2>
+            <h2>Go to signup page</h2>
           </a>
         </div>
 
