@@ -9,7 +9,7 @@ const devConfig = {
 const prodConfig = {
   dbUrl:
     "mongodb+srv://mkhavari01:1234@cluster0.kdhgz5v.mongodb.net/online-exam",
-  port: 80,
+  port: 3001,
 };
 
 const config = process.env.NODE_ENV === "production" ? prodConfig : devConfig;
