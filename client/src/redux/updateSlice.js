@@ -9,7 +9,7 @@ const sendUpdateRequestAsync = (data) => async (dispatch) => {
   try {
     dispatch(sendUpdateRequest());
     const response = await axios.put(
-      `${process.env.REACT_APP_BACKEND_URL}/api/answer`,
+      `${process.env.REACT_APP_BACKEND_URL}api/answer`,
       data,
       config
     );

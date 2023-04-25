@@ -30,6 +30,10 @@ const navItems = [
     name: "Login",
     link: "/login",
   },
+  {
+    name: "Form",
+    link: "/form",
+  },
 ];
 
 function Header(props) {
