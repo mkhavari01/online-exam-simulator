@@ -36,6 +36,10 @@ const authSlice = createSlice({
     },
     sendAuthError: (state, action) => {
       alert(action.payload);
+      if (action.payload === "User was not found") {
+        alert("you have to signup first;");
+        window.location.href = "/signup";
+      }
       state.isLoading = false;
       state.isSuccess = false;
       state.isError = true;

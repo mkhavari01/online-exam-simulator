@@ -22,6 +22,10 @@ const steps = [
     label: "What is your gender (Multiple choice)",
     description: <MultipleChoice indexQuestion={2} />,
   },
+  {
+    label: "what is your family name? (short answer)",
+    description: <ShortAnswer indexQuestion={3} />,
+  },
 ];
 
 function StepperCompo() {
@@ -65,6 +69,12 @@ function StepperCompo() {
         >
           {steps[activeStep].description}
         </Box>
+        {activeStep === steps.length - 1 && (
+          <div className="main-button-wrapper">
+            <button className="main-button">Submit</button>
+          </div>
+        )}
+
         <MobileStepper
           style={{ background: "#e0e0e0" }}
           variant="text"
