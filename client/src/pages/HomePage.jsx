@@ -18,15 +18,10 @@ const HomePage = () => {
             </a>
           </div>
           <div className="ag-courses_item">
-            <a href="/form" className="ag-courses-item_link">
+            <a href="/signup" className="ag-courses-item_link">
               <div className="ag-courses-item_bg"></div>
 
               <div className="ag-courses-item_title">SIGNUP Form</div>
-
-              {/* <div className="ag-courses-item_date-box">
-                Start:
-                <span className="ag-courses-item_date">04.11.2022</span>
-              </div> */}
             </a>
           </div>
           <div className="ag-courses_item">
