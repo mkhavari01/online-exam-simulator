@@ -9,3 +9,4 @@ get into the directory of project using terminal
 3. docker exec -it client /bin/sh
 4. nginx -s reload
 
+visit <a href="http://localhost:80">http://localhost:80</a>
