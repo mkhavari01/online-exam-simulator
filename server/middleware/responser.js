@@ -1,5 +1,5 @@
 const successResponse = (res, data, statusCode) => {
-  return res.status(statusCode || 201).json({
+  return res.status(statusCode || 200).json({
     status: "success",
     data,
   });

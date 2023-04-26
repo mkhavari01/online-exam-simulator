@@ -8,6 +8,9 @@ import Button from "@mui/material/Button";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import { ShortAnswer, LongAnswer, MultipleChoice } from "../components";
+import { useSelector, useDispatch } from "react-redux";
+import { useAnswerData } from "../handler/useAnswerData";
+import { finalAnswer } from "../redux/finalAnswerSlice";
 
 const steps = [
   {
@@ -29,6 +32,12 @@ const steps = [
 ];
 
 function StepperCompo() {
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state.answers.answers.data);
+  const loading = useSelector((state) => state.finalAnswer.loading);
+
+  const { previousData, userInputData, updateAnswer } = useAnswerData();
+
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = steps.length;
@@ -41,76 +50,112 @@ function StepperCompo() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
+  const finalSubmit = () => {
+    let result = [
+      ...state.map((itemX) => {
+        const itemY = userInputData.find(
+          (itemY) => itemY.index === itemX.index
+        );
+        return itemY ? itemY : itemX;
+      }),
+      ...userInputData.filter(
+        (itemY) => !state.some((itemX) => itemX.index === itemY.index)
+      ),
+    ];
+
+    console.log("rrr", result);
+
+    result = result.map((el) => {
+      return {
+        examIndex: el.index || el.examIndex || 0,
+        answer: el.value || el.answer,
+      };
+    });
+
+    // console.log("replaces", result);
+    dispatch(finalAnswer(result));
+  };
+
+  // if (loading) {
+  //   return <h1 className="">Loading...</h1>;
+  // }
+
   return (
     <section className="wrapper-boxes-holder">
-      <Box sx={{ maxWidth: 400, flexGrow: 1 }} className="boxes-holder">
-        <Paper
-          square
-          elevation={0}
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            height: 50,
-            pl: 2,
-            bgcolor: "background.default",
-          }}
-        >
-          <Typography>{steps[activeStep].label}</Typography>
-        </Paper>
-        <Box
-          sx={{
-            background: "#fff",
-            height: 255,
-            maxWidth: 400,
-            width: "100%",
-            p: 2,
-            overflow: "auto",
-          }}
-        >
-          {steps[activeStep].description}
-        </Box>
-        {activeStep === steps.length - 1 && (
-          <div className="main-button-wrapper">
-            <button className="main-button">Submit</button>
-          </div>
-        )}
+      {loading ? (
+        <h1>Loading</h1>
+      ) : (
+        <Box sx={{ maxWidth: 400, flexGrow: 1 }} className="boxes-holder">
+          <Paper
+            square
+            elevation={0}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              height: 50,
+              pl: 2,
+              bgcolor: "background.default",
+            }}
+          >
+            <Typography>{steps[activeStep].label}</Typography>
+          </Paper>
+          <Box
+            sx={{
+              background: "#fff",
+              height: 255,
+              maxWidth: 400,
+              width: "100%",
+              p: 2,
+              overflow: "auto",
+            }}
+          >
+            {steps[activeStep].description}
+          </Box>
+          {activeStep === steps.length - 1 && (
+            <div className="main-button-wrapper">
+              <button className="main-button" onClick={finalSubmit}>
+                Submit
+              </button>
+            </div>
+          )}
 
-        <MobileStepper
-          style={{ background: "#e0e0e0" }}
-          variant="text"
-          steps={maxSteps}
-          position="static"
-          activeStep={activeStep}
-          nextButton={
-            <Button
-              size="small"
-              onClick={handleNext}
-              disabled={activeStep === maxSteps - 1}
-            >
-              Next
-              {theme.direction === "rtl" ? (
-                <KeyboardArrowLeft />
-              ) : (
-                <KeyboardArrowRight />
-              )}
-            </Button>
-          }
-          backButton={
-            <Button
-              size="small"
-              onClick={handleBack}
-              disabled={activeStep === 0}
-            >
-              {theme.direction === "rtl" ? (
-                <KeyboardArrowRight />
-              ) : (
-                <KeyboardArrowLeft />
-              )}
-              Back
-            </Button>
-          }
-        />
-      </Box>
+          <MobileStepper
+            style={{ background: "#e0e0e0" }}
+            variant="text"
+            steps={maxSteps}
+            position="static"
+            activeStep={activeStep}
+            nextButton={
+              <Button
+                size="small"
+                onClick={handleNext}
+                disabled={activeStep === maxSteps - 1}
+              >
+                Next
+                {theme.direction === "rtl" ? (
+                  <KeyboardArrowLeft />
+                ) : (
+                  <KeyboardArrowRight />
+                )}
+              </Button>
+            }
+            backButton={
+              <Button
+                size="small"
+                onClick={handleBack}
+                disabled={activeStep === 0}
+              >
+                {theme.direction === "rtl" ? (
+                  <KeyboardArrowRight />
+                ) : (
+                  <KeyboardArrowLeft />
+                )}
+                Back
+              </Button>
+            }
+          />
+        </Box>
+      )}
     </section>
   );
 }

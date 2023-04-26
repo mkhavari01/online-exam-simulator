@@ -6,5 +6,6 @@ const examRouter = express.Router();
 
 examRouter.post("/", examController.postExam);
 examRouter.get("/:id", checkUserRole, examController.getExam);
+examRouter.post("/finalAnswer", checkUserRole, examController.finalAnswer);
 
 export { examRouter };

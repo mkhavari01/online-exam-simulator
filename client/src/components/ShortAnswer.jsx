@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const ShortAnswer = ({ indexQuestion }) => {
   const { previousData, userInputData, updateAnswer } = useAnswerData();
+
   const [value, setValue] = useState("");
   const dispatch = useDispatch();
 
