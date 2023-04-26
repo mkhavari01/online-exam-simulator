@@ -11,6 +11,8 @@ import { ShortAnswer, LongAnswer, MultipleChoice } from "../components";
 import { useSelector, useDispatch } from "react-redux";
 import { useAnswerData } from "../handler/useAnswerData";
 import { finalAnswer } from "../redux/finalAnswerSlice";
+import { clearAnswers } from "../redux/answersSlice";
+import { CircularProgress } from "@mui/material";
 
 const steps = [
   {
@@ -74,16 +76,13 @@ function StepperCompo() {
 
     // console.log("replaces", result);
     dispatch(finalAnswer(result));
+    dispatch(clearAnswers());
   };
-
-  // if (loading) {
-  //   return <h1 className="">Loading...</h1>;
-  // }
 
   return (
     <section className="wrapper-boxes-holder">
       {loading ? (
-        <h1>Loading</h1>
+        <CircularProgress />
       ) : (
         <Box sx={{ maxWidth: 400, flexGrow: 1 }} className="boxes-holder">
           <Paper
@@ -113,9 +112,18 @@ function StepperCompo() {
           </Box>
           {activeStep === steps.length - 1 && (
             <div className="main-button-wrapper">
-              <button className="main-button" onClick={finalSubmit}>
+              <Button
+                style={{
+                  background: "#fff",
+                  color: "#2b85c3",
+                  margin: "10px 0",
+                }}
+                className="main-button"
+                variant="contained"
+                onClick={finalSubmit}
+              >
                 Submit
-              </button>
+              </Button>
             </div>
           )}
 

@@ -18,7 +18,7 @@ const finalAnswer = createAsyncThunk("api/exam/finalAnswer", async (data) => {
 const initialState = {
   loading: false,
   error: null,
-  sucess: false,
+  success: false,
 };
 
 const finalAnswerSlice = createSlice({

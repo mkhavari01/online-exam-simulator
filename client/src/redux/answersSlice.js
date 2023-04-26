@@ -45,6 +45,11 @@ const answersSlice = createSlice({
     updateAnswer: (state, action) => {
       state.userInput = updateArray(state.userInput, action.payload);
     },
+    clearAnswers: (state) => {
+      console.log("heredddd");
+      state.userInput = [];
+      state.answers = [];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -75,4 +80,4 @@ export const selectError = (state) => state.answers.error;
 
 export { fetchAnswers };
 
-export const { updateAnswer } = answersSlice.actions;
+export const { updateAnswer, clearAnswers } = answersSlice.actions;

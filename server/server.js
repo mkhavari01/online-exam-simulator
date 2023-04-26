@@ -8,7 +8,6 @@ import { examRouter } from "./routes/exam.router.js";
 import { answerRouter } from "./routes/answer.router.js";
 
 import { logRequest } from "./middleware/logRequest.js";
-import { FinalAnswerModel } from "./models/finalAnswer.model.js";
 
 const app = express();
 
