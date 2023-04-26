@@ -12,6 +12,19 @@ const prodConfig = {
   port: 3001,
 };
 
-const config = process.env.NODE_ENV === "production" ? prodConfig : devConfig;
+const containerConfig = {
+  dbUrl: "mongodb://mongo:27017/online-exam",
+  port: 3001,
+};
+
+let config;
+
+if (process.env.NODE_ENV === "production") {
+  config = prodConfig;
+} else if (process.env.NODE_ENV === "local") {
+  config = devConfig;
+} else if (process.env.NODE_ENV === "container") {
+  config = containerConfig;
+}
 
 export { config };

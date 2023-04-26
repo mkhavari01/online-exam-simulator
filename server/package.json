@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "cross-env NODE_ENV=production node server.js",
+    "container": "cross-env NODE_ENV=container node server.js",
     "dev": "cross-env NODE_ENV=local nodemon server.js"
   },
   "dependencies": {

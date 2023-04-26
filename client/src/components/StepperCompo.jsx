@@ -77,6 +77,7 @@ function StepperCompo() {
     // console.log("replaces", result);
     dispatch(finalAnswer(result));
     dispatch(clearAnswers());
+    setActiveStep(0);
   };
 
   return (
