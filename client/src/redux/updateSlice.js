@@ -41,6 +41,7 @@ const updateSlice = createSlice({
     },
     sendUpdateError: (state, action) => {
       console.log("Error:", action.payload);
+      alert("your text couldn't be syncronized");
       state.isLoading = false;
       state.isSuccess = false;
       state.isError = true;

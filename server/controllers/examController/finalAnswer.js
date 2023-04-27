@@ -8,16 +8,27 @@ const finalAnswer = async (req, res, next) => {
     const { data } = req.body;
     const user = req.user;
 
-    const newRecord = new FinalAnswerModel({
-      user: user._id,
-      data,
-    });
+    console.log("data", data);
 
-    await AnswerModel.deleteMany({ user: user._id });
+    // const newRecord = new FinalAnswerModel({
+    //   user: user._id,
+    //   data,
+    // });
 
-    await newRecord.save();
+    const response = await FinalAnswerModel.replaceOne(
+      { user: user._id },
+      { user: user._id, data: data },
+      {
+        new: true,
+        runValidators: true,
+        upsert: true,
+      }
+    );
 
-    successResponse(res, null, 201);
+    // await newRecord.save();
+    // await AnswerModel.deleteMany({ user: user._ids });
+
+    successResponse(res, response, 201);
   } catch (error) {
     console.log("in route of final answer");
     errorResponse(res, error);

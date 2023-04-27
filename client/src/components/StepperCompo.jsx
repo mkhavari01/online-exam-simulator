@@ -37,6 +37,9 @@ function StepperCompo() {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.answers.answers.data);
   const loading = useSelector((state) => state.finalAnswer.loading);
+  // const updateError = useSelector((state) => state.update.isError);
+
+  // console.log("Error ", updateError);
 
   const { previousData, userInputData, updateAnswer } = useAnswerData();
 
@@ -53,30 +56,59 @@ function StepperCompo() {
   };
 
   const finalSubmit = () => {
-    let result = [
-      ...state.map((itemX) => {
-        const itemY = userInputData.find(
-          (itemY) => itemY.index === itemX.index
+    console.log(state);
+    console.log(userInputData);
+
+    let inputArray = [...userInputData, ...state];
+
+    function getUniqueArray(arr) {
+      const indexMap = new Map();
+      const examIndexMap = new Map();
+
+      // Iterate through the array
+      arr.forEach((obj) => {
+        if (obj.index !== undefined) {
+          // If object has an "index" key
+          indexMap.set(obj.index, obj);
+        } else if (obj.examIndex !== undefined) {
+          // If object has an "examIndex" key
+          examIndexMap.set(obj.examIndex, obj);
+        }
+      });
+
+      // Return the objects with unique "index" or "examIndex" values
+      const result = [];
+      indexMap.forEach((value) => result.push(value));
+      examIndexMap.forEach((value, key) => {
+        if (!indexMap.has(key)) {
+          result.push(value);
+        }
+      });
+      return result;
+    }
+
+    function filterAndMap(arr) {
+      const indexObj = arr.find((obj) => obj.hasOwnProperty("index"));
+      const examIndexObj = arr.find((obj) => obj.hasOwnProperty("examIndex"));
+      if (indexObj && examIndexObj) {
+        arr = arr.filter(
+          (obj) =>
+            !obj.hasOwnProperty("examIndex") || obj.examIndex !== indexObj.index
         );
-        return itemY ? itemY : itemX;
-      }),
-      ...userInputData.filter(
-        (itemY) => !state.some((itemX) => itemX.index === itemY.index)
-      ),
-    ];
+      }
+      const result = [];
+      for (const obj of arr) {
+        if (obj.hasOwnProperty("index")) {
+          result.push({ answer: obj.value, examIndex: obj.index });
+        } else if (obj.hasOwnProperty("examIndex")) {
+          result.push({ answer: obj.answer, examIndex: obj.examIndex });
+        }
+      }
+      return result;
+    }
 
-    console.log("rrr", result);
-
-    result = result.map((el) => {
-      return {
-        examIndex: el.index || el.examIndex || 0,
-        answer: el.value || el.answer,
-      };
-    });
-
-    // console.log("replaces", result);
-    dispatch(finalAnswer(result));
-    dispatch(clearAnswers());
+    dispatch(finalAnswer(filterAndMap(getUniqueArray(inputArray))));
+    // dispatch(clearAnswers());
     setActiveStep(0);
   };
 

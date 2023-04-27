@@ -7,6 +7,8 @@ const updateAnswer = async (req, res, next) => {
     const { answer, examIndex } = req.body;
     const user = req.user;
 
+    // throw new Error("your text couldn't be syncronized");
+
     //// we are using static web form
 
     // const doc = await ExamModel.findById(exam);
